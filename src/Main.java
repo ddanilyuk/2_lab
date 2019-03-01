@@ -19,8 +19,7 @@ public class Main {
                 {4, 2, 4}
         };
 
-        // Show matrix
-
+        // Show main matrix
         System.out.println("Main matrix: ");
 
         for (short i = 0; i < rows; i++) {
@@ -30,11 +29,6 @@ public class Main {
             System.out.println();
         }
 
-
-        System.out.println(" ");
-        System.out.println("New matrix:");
-
-
         //Changes C = A^t
         for (short i = 0; i < rows; i++) {
             for (short j = 0; j < colomns; j++) {
@@ -43,7 +37,9 @@ public class Main {
             }
         }
 
-        //sout new matrix
+        //show new matrix
+        System.out.println("\nNew matrix:");
+
         for (short i = 0; i < colomns; i++) {
             for (short j = 0; j < rows; j++) {
                 System.out.print(nums_2[i][j] + "\t");
@@ -51,8 +47,7 @@ public class Main {
             System.out.println();
         }
 
-        System.out.println(" ");
-
+        //sum of min numbers
         short sum = 0;
         for (short i = 0; i < rows; i++) {
             short min_temp = 0;
@@ -68,8 +63,6 @@ public class Main {
             sum += min_temp;
         }
 
-        System.out.println("Sum of min numbers = " + sum);
-
-
+        System.out.println("\nSum of min numbers = " + sum);
     }
 }
