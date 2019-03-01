@@ -1,68 +1,91 @@
 public class Main {
     public static void main(String[] args) {
         /*
-             8206
+             8208
             /2 = 0
-            /3 = 1
-            /5 = 1
-            /7 = 2
-            /11 = 0
+            /3 = 0
+            /5 = 3
+            /7 = 4
+            /11 = 2
         */
 
-        short rows = 4;
-        short colomns = 3;
-        short[][] nums_2 = new short[colomns][rows];
-        short[][] nums = {
+        int rows_A = 4;
+        int colomns_A = 3;
+        int rows_B = 4;
+        int colomns_B = 3;
+        long[][] C = new long[rows_A + rows_B][colomns_A + colomns_B];
+        long[][] A = {
                 {1, 2, 3},
                 {2, 5, 6},
                 {3, 8, 9},
                 {4, 2, 4}
         };
+        long[][] B = {
+                {9, 8, 7},
+                {2, 5, 6},
+                {3, 8, 9},
+                {4, 2, 4}
+        };
 
-        // Show main matrix
-        System.out.println("Main matrix: ");
+        // Show A matrix
+        System.out.println("A matrix: ");
 
-        for (short i = 0; i < rows; i++) {
-            for (short j = 0; j < colomns; j++) {
-                System.out.print(nums[i][j] + "\t");
+        for (int i = 0; i < rows_A; i++) {
+            for (int j = 0; j < colomns_A; j++) {
+                System.out.print(A[i][j] + "\t");
             }
             System.out.println();
         }
 
-        //Changes C = A^t
-        for (short i = 0; i < rows; i++) {
-            for (short j = 0; j < colomns; j++) {
-                short temp = nums[i][j];
-                nums_2[j][i] = temp;
+        // Show B matrix
+        System.out.println("\nB matrix: ");
+
+        for (int i = 0; i < rows_B; i++) {
+            for (int j = 0; j < colomns_B; j++) {
+                System.out.print(B[i][j] + "\t");
+            }
+            System.out.println();
+        }
+
+        //  C = A ⨁ B
+        for (int i = 0; i < rows_A; i++) {
+            for (int j = 0; j < colomns_A; j++) {
+                C[i][j] = A[i][j];
+                C[i+rows_B][j]=0;
+            }
+        }
+        for (int i = 0; i < rows_B; i++) {
+            for (int j = 0; j < colomns_B; j++) {
+                C[i+rows_B][j+colomns_B] = B[i][j];
+                C[i][j+colomns_B]=0;
             }
         }
 
-        //show new matrix
-        System.out.println("\nNew matrix:");
-
-        for (short i = 0; i < colomns; i++) {
-            for (short j = 0; j < rows; j++) {
-                System.out.print(nums_2[i][j] + "\t");
+        // Show С matrix
+        System.out.println("\nС(A ⨁ B) matrix: ");
+        for (int i = 0; i < rows_B+rows_A; i++) {
+            for (int j = 0; j < colomns_B+colomns_A; j++) {
+                System.out.print(C[i][j] + "\t");
             }
             System.out.println();
         }
 
         //sum of min numbers
-        short sum = 0;
-        for (short i = 0; i < rows; i++) {
-            short min_temp = 0;
-            for (short j = 0; j < colomns; j++) {
-                short temp = nums_2[j][i];
+        long sum = 0;
+        for (int i = 0; i < colomns_A+colomns_B; i++) {
+            long max_temp = 0;
+            for (int j = 0; j < rows_A+rows_B; j++) {
+                long temp = C[j][i];
                 if(j == 0){
-                    min_temp = temp;
+                    max_temp = temp;
                 }
-                if(min_temp > temp){
-                    min_temp = temp;
+                if(max_temp < temp){
+                    max_temp = temp;
                 }
             }
-            sum += min_temp;
+            sum += max_temp;
         }
 
-        System.out.println("\nSum of min numbers = " + sum);
+        System.out.println("\nSum of max numbers = " + sum);
     }
 }
